@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot
+  namespace: springboot-project
+  labels:
+    app: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+        - name: springboot
+          image: byckles/jpa_project:1.0.0
+          ports:
+            - containerPort: 8082
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: database_url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: mysql-user-username
+                  name: mysql-secret
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom
+                secretKeyRef:
+                  key: mysql-user-password
+                  name: mysql-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-service
+  namespace: springboot-project
+spec:
+  selector:
+    app: springboot
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+      nodePort: 30001
