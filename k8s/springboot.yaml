@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: springboot
-          image: byckles/jpa_project:1.0.0
+          image: byckles/jpa_project:2.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082

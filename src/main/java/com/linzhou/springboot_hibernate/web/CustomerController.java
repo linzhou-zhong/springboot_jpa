@@ -13,6 +13,11 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @GetMapping("/")
+    public String welcome(){
+        return "Connected to Server successfully!";
+    }
+
     @GetMapping("/customers")
     public List<Customer> customers(){
         return customerRepository.findAll();
