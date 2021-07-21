@@ -33,12 +33,12 @@ public class CustomerController {
         return customerRepository.findById(id).get();
     }
 
-    @PostMapping("/")
+    @PostMapping("/customers")
     public Customer saveCustomer(final @RequestBody Customer customer){
         return customerRepository.save(customer);
     }
 
-    @DeleteMapping("/customers")
+    @DeleteMapping("/customers/id/{id}")
     public void deleteCustomer(@PathVariable Long id){
         customerRepository.deleteById(id);
     }
