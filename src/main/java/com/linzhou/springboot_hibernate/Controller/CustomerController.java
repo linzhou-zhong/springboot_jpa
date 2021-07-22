@@ -1,5 +1,6 @@
-package com.linzhou.springboot_hibernate.web;
+package com.linzhou.springboot_hibernate.Controller;
 
+import com.linzhou.springboot_hibernate.Service.CustomerService;
 import com.linzhou.springboot_hibernate.entities.Customer;
 import com.linzhou.springboot_hibernate.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
     @GetMapping("/")
     public String welcome(){
@@ -20,27 +21,27 @@ public class CustomerController {
 
     @GetMapping("/customers")
     public List<Customer> customers(){
-        return customerRepository.findAll();
+        return customerService.find();
     }
 
     @GetMapping("/customers/name/{name}")
     public List<Customer> customer(@PathVariable String name){
-        return customerRepository.findByNameContains(name);
+        return customerService.findByName(name);
     }
 
     @GetMapping("/customers/id/{id}")
     public Customer customer(@PathVariable Long id){
-        return customerRepository.findById(id).get();
+        return customerService.findById(id);
     }
 
     @PostMapping("/customers")
     public Customer saveCustomer(final @RequestBody Customer customer){
-        return customerRepository.save(customer);
+        return customerService.add(customer);
     }
 
     @DeleteMapping("/customers/id/{id}")
     public void deleteCustomer(@PathVariable Long id){
-        customerRepository.deleteById(id);
+        customerService.removeById(id);
     }
 
 }
