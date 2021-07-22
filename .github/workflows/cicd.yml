@@ -67,4 +67,4 @@ jobs:
       - name: Build Docker image
         run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
       - name: Publish Docker image
-        run: docker push $REPO:${GITHUB_SHA::8}
+        run: docker push $REPO
