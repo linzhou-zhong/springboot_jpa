@@ -1,4 +1,4 @@
-# Replaced by fabric8
+# Can be replaced by fabric8
 FROM openjdk:11
 WORKDIR /opt
 ENV PORT 8082
