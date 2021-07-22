@@ -26,7 +26,6 @@ public class CustomerService {
     public List<Customer> find(){
         List<Customer> c = null;
 
-
         c = customerRepository.findAll();
 
         return c;
@@ -36,7 +35,8 @@ public class CustomerService {
         Customer c = null;
 
         if (id != null){
-            c = customerRepository.findById(id).get();
+            if (customerRepository.findById(id).isPresent())
+                c = customerRepository.findById(id).get();
         }
 
         return c;
